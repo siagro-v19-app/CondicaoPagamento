@@ -1,0 +1,65 @@
+<mvc:View
+xmlns:core="sap.ui.core"
+xmlns:mvc="sap.ui.core.mvc"
+xmlns="sap.m"
+controllerName="br.com.idxtecCondicaoPagamento.controller.GravarCondicao"
+xmlns:html="http://www.w3.org/1999/xhtml"
+xmlns:f="sap.ui.layout.form">
+	<App>
+		<pages>
+			<Page showHeader="false">
+				<content>
+					<VBox class="sapUiSmallMargin">
+						<Panel headerText="Condição de Pagamento">
+							<f:SimpleForm id="formCondicao"
+								editable="true"
+								layout="ResponsiveGridLayout"
+								labelSpanXL="4"
+								labelSpanL="4"
+								labelSpanM="4"
+								labelSpanS="12"
+								adjustLabelSpan="false"
+								emptySpanXL="0"
+								emptySpanL="0"
+								emptySpanM="0"
+								emptySpanS="0"
+								columnsXL="3"
+								columnsL="2"
+								columnsM="2"
+								singleContainerFullSize="false">
+							<f:content>
+								<core:Title text="{view>/titulo}"/>
+								<Label text="Descrição" labelFor="descricao"/>
+								<Input id="descricao" value="{model>/Descricao}" required="true"/>
+								
+								<Label text="Parcelas" labelFor="parcelas"/>
+								<Input id="parcelas" value="{model>/Parcelas}"/>
+								
+								<Label text="Intervalo" labelFor="intervalo"/>
+								<Input id="intervalo" value="{model>/Intervalo}"/>
+								
+								<Label text="Vencimento Fixo" labelFor="vencimentofixo"/>
+								<CheckBox id="vencimentofixo" selected="{model>/VencimentoFixo}" select="onSelect"/>
+
+								<Label text="Data Venc. Fixo" labelFor="datavencimentofixo"/>
+								<Input id="datavencimentofixo" value="{model>/DataVencimentoFixo}"
+								editable="{select>/codigoEdit}"/>
+								
+								<Label text="Com entrada" labelFor="comentrada"/>
+								<CheckBox id="comentrada" selected="{model>/ComEntrada}"/>
+							</f:content>
+						</f:SimpleForm>
+						</Panel>
+					</VBox>
+				</content>
+				<footer>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://save" id="salvar" text="Salvar" press="onSalvar"/>
+						<Button icon="sap-icon://reset" id="voltar" text="Cancelar" press="onVoltar"/>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
