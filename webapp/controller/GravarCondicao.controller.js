@@ -2,8 +2,9 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History",
 	"sap/m/MessageBox",
-	"sap/ui/model/json/JSONModel"
-], function(Controller, History, MessageBox, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"br/com/idxtecCondicaoPagamento/services/Session"
+], function(Controller, History, MessageBox, JSONModel, Session) {
 	"use strict";
 
 	return Controller.extend("br.com.idxtecCondicaoPagamento.controller.GravarCondicao", {
@@ -41,7 +42,11 @@ sap.ui.define([
 					"Parcelas": 0,
 					"Intervalo": 0,
 					"VencimentoFixo": false,
-					"DataVencimentoFixo": ""
+					"DataVencimentoFixo": "",
+					"Empresa" : Session.get("EMPRESA_ID"),
+					"Usuario": Session.get("USUARIO_ID"),
+					"EmpresaDetails": { __metadata: { uri: "/Empresas(" + Session.get("EMPRESA_ID") + ")"}},
+					"UsuarioDetails": { __metadata: { uri: "/Usuarios(" + Session.get("USUARIO_ID") + ")"}}
 				};
 				
 				oJSONModel.setData(oNovoCondicao);
@@ -100,8 +105,8 @@ sap.ui.define([
 			var oJSONModel = this.getOwnerComponent().getModel("model");
 			var oDados = oJSONModel.getData();
 			
-			oDados.Parcelas = oDados.Parcelas ? parseInt(oDados.Parcelas, 0) : 0;
-			oDados.Intervalo = oDados.Intervalo ? parseInt(oDados.Intervalo, 0) : 0;
+			oDados.Parcelas = oDados.Parcelas ? oDados.Parcelas : 0;
+			oDados.Intervalo = oDados.Intervalo ? oDados.Intervalo : 0;
 
 			return oDados;
 		},

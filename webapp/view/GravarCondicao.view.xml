@@ -33,10 +33,10 @@ xmlns:f="sap.ui.layout.form">
 								<Input id="descricao" value="{model>/Descricao}" required="true"/>
 								
 								<Label text="Parcelas" labelFor="parcelas"/>
-								<Input id="parcelas" value="{model>/Parcelas}"/>
+								<Input id="parcelas" value="{path: 'model>/Parcelas', type: 'sap.ui.model.odata.type.Int32'}"/>
 								
 								<Label text="Intervalo" labelFor="intervalo"/>
-								<Input id="intervalo" value="{model>/Intervalo}"/>
+								<Input id="intervalo" value="{path: 'model>/Intervalo', type: 'sap.ui.model.odata.type.Int32'}"/>
 								
 								<Label text="Vencimento Fixo" labelFor="vencimentofixo"/>
 								<CheckBox id="vencimentofixo" selected="{model>/VencimentoFixo}" select="onSelect"/>
