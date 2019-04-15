@@ -10,7 +10,7 @@ xmlns:f="sap.ui.layout.form">
 			<Page showHeader="false">
 				<content>
 					<VBox class="sapUiSmallMargin">
-						<Panel headerText="Condição de Pagamento">
+						<Panel headerText="{view>/titulo}">
 							<f:SimpleForm id="formCondicao"
 								editable="true"
 								layout="ResponsiveGridLayout"
@@ -27,36 +27,35 @@ xmlns:f="sap.ui.layout.form">
 								columnsL="2"
 								columnsM="2"
 								singleContainerFullSize="false">
-							<f:content>
-								<core:Title text="{view>/titulo}"/>
-								<Label text="Descrição" labelFor="descricao"/>
-								<Input id="descricao" value="{model>/Descricao}" required="true"/>
-								
-								<Label text="Parcelas" labelFor="parcelas"/>
-								<Input id="parcelas" value="{path: 'model>/Parcelas', type: 'sap.ui.model.odata.type.Int32'}"/>
-								
-								<Label text="Intervalo" labelFor="intervalo"/>
-								<Input id="intervalo" value="{path: 'model>/Intervalo', type: 'sap.ui.model.odata.type.Int32'}"/>
-								
-								<Label text="Vencimento Fixo" labelFor="vencimentofixo"/>
-								<CheckBox id="vencimentofixo" selected="{model>/VencimentoFixo}" select="onSelect"/>
-
-								<Label text="Data Venc. Fixo" labelFor="datavencimentofixo"/>
-								<Input id="datavencimentofixo" value="{model>/DataVencimentoFixo}"
-								editable="{select>/codigoEdit}"/>
-								
-								<Label text="Com entrada" labelFor="comentrada"/>
-								<CheckBox id="comentrada" selected="{model>/ComEntrada}"/>
-							</f:content>
-						</f:SimpleForm>
+								<f:content>
+									<Label text="Descrição" labelFor="descricao"/>
+									<Input id="descricao" value="{model>/Descricao}" required="true"/>
+									
+									<Label text="Parcelas" labelFor="parcelas"/>
+									<Input id="parcelas" value="{path: 'model>/Parcelas', type: 'sap.ui.model.odata.type.Int32'}"/>
+									
+									<Label text="Intervalo" labelFor="intervalo"/>
+									<Input id="intervalo" value="{path: 'model>/Intervalo', type: 'sap.ui.model.odata.type.Int32'}"/>
+									
+									<Label text="Vencimento Fixo" labelFor="vencimentofixo"/>
+									<CheckBox id="vencimentofixo" selected="{model>/VencimentoFixo}" select="onSelect"/>
+	
+									<Label text="Data Venc. Fixo" labelFor="datavencimentofixo"/>
+									<Input id="datavencimentofixo" value="{model>/DataVencimentoFixo}"
+									editable="{select>/codigoEdit}"/>
+									
+									<Label text="Com entrada" labelFor="comentrada"/>
+									<CheckBox id="comentrada" selected="{model>/ComEntrada}"/>
+								</f:content>
+							</f:SimpleForm>
 						</Panel>
 					</VBox>
 				</content>
 				<footer>
 					<Toolbar>
 						<ToolbarSpacer/>
-						<Button icon="sap-icon://save" id="salvar" text="Salvar" press="onSalvar"/>
-						<Button icon="sap-icon://reset" id="voltar" text="Cancelar" press="onVoltar"/>
+						<Button text="Salvar" press="onSalvar" type="Accept"/>
+   						<Button text="Fechar" press="onVoltar" type="Reject"/>
 					</Toolbar>
 				</footer>
 			</Page>

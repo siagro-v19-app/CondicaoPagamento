@@ -1,8 +1,11 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/m/MessageBox",
-	"sap/ui/model/json/JSONModel"
-], function(Controller, MessageBox, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	"br/com/idxtecCondicaoPagamento/services/Session"
+], function(Controller, MessageBox, JSONModel, Filter, FilterOperator, Session) {
 	"use strict";
 
 	return Controller.extend("br.com.idxtecCondicaoPagamento.controller.CondicaoPagamento", {
@@ -11,6 +14,29 @@ sap.ui.define([
 			
 			this.getOwnerComponent().setModel(oParamModel, "parametros");
 			this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
+			
+			this.getModel().attachMetadataLoaded(function(){
+				var oFilter = new Filter("Empresa", FilterOperator.EQ, Session.get("EMPRESA_ID"));
+				var oView = this.getView();
+				var oTable = oView.byId("tableCondicao");
+				var oColumn = oView.byId("columnDescricao");
+				
+				oTable.sort(oColumn);
+				oView.byId("tableCondicao").getBinding("rows").filter(oFilter, "Application");
+			});
+		},
+		
+		filtraCondicao: function(oEvent){
+			var sQuery = oEvent.getParameter("query");
+			var oFilter1 = new Filter("Empresa", FilterOperator.EQ, Session.get("EMPRESA_ID"));
+			var oFilter2 = new Filter("Descricao", FilterOperator.Contains, sQuery);
+			
+			var aFilters = [
+				oFilter1,
+				oFilter2
+			];
+
+			this.getView().byId("tableCondicao").getBinding("rows").filter(aFilters, "Application");
 		},
 
 		onRefresh: function(e){
@@ -19,7 +45,7 @@ sap.ui.define([
 			this.getView().byId("tableCondicao").clearSelection();
 		},
 		
-		onIncluirCondicao: function(){
+		onIncluir: function(){
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			var oTable = this.byId("tableCondicao"); 
 			
@@ -30,7 +56,7 @@ sap.ui.define([
 			oTable.clearSelection();
 		},
 		
-		onEditarCondicao: function(){
+		onEditar: function(){
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			var oTable = this.byId("tableCondicao");
 			var nIndex = oTable.getSelectedIndex();
@@ -48,7 +74,7 @@ sap.ui.define([
 			oTable.clearSelection();
 		},
 		
-		onRemoverCondicao: function(e){
+		onRemover: function(e){
 			var that = this;
 			var oTable = this.byId("tableCondicao");
 			var nIndex = oTable.getSelectedIndex();
@@ -81,6 +107,10 @@ sap.ui.define([
 					MessageBox.error(oError.responseText);
 				}
 			});
+		},
+		
+		getModel: function(sModel) {
+			return this.getOwnerComponent().getModel(sModel);
 		}
 	});
 });
