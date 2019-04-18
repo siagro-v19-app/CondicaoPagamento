@@ -38,6 +38,7 @@ sap.ui.define([
 			
 				var oNovoCondicao = {
 					"Id": 0,
+					"Descricao": "",
 					"ComEntrada": false,
 					"Parcelas": 0,
 					"Intervalo": 0,
