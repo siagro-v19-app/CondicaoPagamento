@@ -15,19 +15,21 @@ sap.ui.define([
 			this.getOwnerComponent().setModel(oParamModel, "parametros");
 			this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
 			
-			this.getModel().attachMetadataLoaded(function(){
-				var oFilter = new Filter("Empresa", FilterOperator.EQ, Session.get("EMPRESA_ID"));
-				var oView = this.getView();
-				var oTable = oView.byId("tableCondicao");
-				var oColumn = oView.byId("columnDescricao");
-				
-				oTable.sort(oColumn);
-				oView.byId("tableCondicao").getBinding("rows").filter(oFilter, "Application");
+			var oFilter = new Filter("Empresa", FilterOperator.EQ, Session.get("EMPRESA_ID"));
+			var oView = this.getView();
+			var oTable = oView.byId("tableCondicao");
+			
+			oTable.bindRows({ 
+				path: '/CondicaoPagamentos',
+				sorter: {
+					path: 'Descricao'
+				},
+				filters: oFilter
 			});
 		},
 		
 		filtraCondicao: function(oEvent){
-			var sQuery = oEvent.getParameter("query");
+			var sQuery = oEvent.getParameter("query").toUpperCase();
 			var oFilter1 = new Filter("Empresa", FilterOperator.EQ, Session.get("EMPRESA_ID"));
 			var oFilter2 = new Filter("Descricao", FilterOperator.Contains, sQuery);
 			
